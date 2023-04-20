@@ -42,8 +42,8 @@ class ProductList:
             count = n.price * n.quantity
             hight_cost.append(count)
         max_cost = max(hight_cost)
-        a = hight_cost.index(max_cost)
-        product = self.products_list[a]
+        # a = hight_cost.index(max_cost)
+        product = self.products_list[hight_cost.index(max_cost)]
         return f"Highest total cost of products '{product.name}' cost is {max_cost}€"
 
     def print_list(self) -> None:
