@@ -9,6 +9,7 @@
 
 # Create a list of Product objects and write a function that takes this list as input
 # and returns the product with the highest total cost.
+
 # Write a program that creates a list of 5 Product objects, prints out their attributes,
 # and then calls the function to find the product with the highest total cost.
 
@@ -22,22 +23,44 @@ class Product:
     price: float
     quantity: int
 
-    products_list: list = []
 
-    def total_cost(self):
-        total_cost = self.price * self.quantity
+@dataclass
+class ProductList:
+    # products_list: List[Product] = field(default_factory=list)
+    products_list = []
+
+    def total_cost(self, product: Product):
+        total_cost = product.price * product.quantity
         return total_cost
 
+    def add_product(self, product: Product):
+        self.products_list.append(product)
+
     def find_highest_total_cost(self):
-        pass
+        hight_cost = []
+        for n in self.products_list:
+            count = n.price * n.quantity
+            hight_cost.append(count)
+        max_cost = max(hight_cost)
+        a = hight_cost.index(max_cost)
+        product = self.products_list[a]
+        return f"Highest total cost of products '{product.name}' cost is {max_cost}€"
 
 
 product_1 = Product(product_id="1", name="Tranzistorius", price=0.15, quantity=50)
-product_2 = Product(product_id="1", name="Rezistorius", price=1.15, quantity=50)
-product_3 = Product(product_id="1", name="Kondensatorius", price=0.75, quantity=50)
-product_4 = Product(product_id="1", name="Varistorius", price=2.15, quantity=50)
-product_5 = Product(product_id="1", name="Simistorius", price=0.85, quantity=50)
+product_2 = Product(product_id="2", name="Rezistorius", price=1.15, quantity=50)
+product_3 = Product(product_id="3", name="Kondensatorius", price=0.75, quantity=50)
+product_4 = Product(product_id="4", name="Varistorius", price=2.15, quantity=50)
+product_5 = Product(product_id="5", name="Simistorius", price=0.85, quantity=50)
 
-Product.products_list(product_1, product_2, product_3, product_4, product_5)
-print(Product.products_list)
-print(product_1.total_cost())
+product = ProductList()
+
+product.add_product(product_1)
+product.add_product(product_2)
+product.add_product(product_3)
+product.add_product(product_4)
+product.add_product(product_5)
+
+
+print(product.find_highest_total_cost())
+print(product.total_cost(product_1))
