@@ -7,10 +7,10 @@
 # [x]The class should also have a method named "total_cost" that calculates and returns
 # the total cost of the product, which is the price multiplied by the quantity.
 
-# Create a list of Product objects and write a function that takes this list as input
+# [x]Create a list of Product objects and write a function that takes this list as input
 # and returns the product with the highest total cost.
 
-# Write a program that creates a list of 5 Product objects, prints out their attributes,
+# [x]Write a program that creates a list of 5 Product objects, prints out their attributes,
 # and then calls the function to find the product with the highest total cost.
 
 from dataclasses import dataclass
@@ -29,22 +29,28 @@ class ProductList:
     # products_list: List[Product] = field(default_factory=list)
     products_list = []
 
-    def total_cost(self, product: Product):
+    def total_cost(self, product: Product) -> float:
         total_cost = product.price * product.quantity
         return total_cost
 
-    def add_product(self, product: Product):
+    def add_product(self, product: Product) -> list:
         self.products_list.append(product)
 
-    def find_highest_total_cost(self):
+    def find_highest_total_cost(self) -> None:
         hight_cost = []
         for n in self.products_list:
             count = n.price * n.quantity
             hight_cost.append(count)
         max_cost = max(hight_cost)
-        a = hight_cost.index(max_cost)
-        product = self.products_list[a]
+        product = self.products_list[hight_cost.index(max_cost)]
         return f"Highest total cost of products '{product.name}' cost is {max_cost}€"
+
+    def print_list(self) -> None:
+        for n in self.products_list:
+            print(
+                f"Product id: {n.product_id}, name: {n.name}, price: {n.price}, quantity: {n.quantity} "
+            )
+        print(self.find_highest_total_cost())
 
 
 product_1 = Product(product_id="1", name="Tranzistorius", price=0.15, quantity=50)
@@ -63,4 +69,5 @@ product.add_product(product_5)
 
 
 print(product.find_highest_total_cost())
-print(product.total_cost(product_1))
+
+product.print_list()
